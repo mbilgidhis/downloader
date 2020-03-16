@@ -3,7 +3,7 @@
     "short_name": "IG Downloader",
     "theme_color": "#49769a",
     "background_color": "#83a7c3",
-    "display": "browser",
+    "display": "standalone",
     "orientation": "portrait",
     "Scope": "/",
     "start_url": "/",

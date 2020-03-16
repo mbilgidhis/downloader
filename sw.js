@@ -4,6 +4,7 @@
         './',
         './index.html',
         './app.js',
+        './manifest.json',
         './images/favicon.ico',
         './images/apple-touch-icon.png',
         './images/android-chrome-192x192.png',
@@ -20,5 +21,14 @@
 
     self.addEventListener('activate', event => {
         event.waitUntil(self.clients.claim());
+    });
+
+    self.addEventListener('fetch', function (event) {
+        console.log(event.request.url);
+        event.respondWith(
+            caches.match(event.request).then(function (response) {
+                return response || fetch(event.request);
+            })
+        );
     });
 })();

@@ -9,18 +9,40 @@
         });
     }
 
-    download.addEventListener('click', getJson);
+    download.addEventListener('click', getDownload);
 
     if( queryUrl() != null ) {
         document.querySelector('#url').value = queryUrl();
     }
 
+    function checkUrl() {
+        let url = getValue();
+        const expression = /(https:\/\/www\.instagram\.com\/p\/[a-zA-Z0-9_]*)/gm;
+        let result = url.match(expression);
+        if ( result )
+            return result[0]
+        else
+            return null;
+    }
+
+    async function getDownload(){
+        let data = await getJson();
+        if ( data.graphql.shortcode_media.is_video ) {
+            console.log(data.graphql.shortcode_media.video_url);
+        } else {
+            console.log(data.graphql.shortcode_media.display_url);
+        }
+    }
+
     async function getJson() {
-        let url = getValue() ;
-        return fetch(url).then(response => {
-            console.log(response);
-            return response;
-        });
+        if ( checkUrl() != null ) {
+            let link = checkUrl() + '/?__a=1';
+            return await fetch(link).then(response => {
+                return response.json();
+            });
+        } else {
+            alert('URL is not valid');
+        }
     }
 
     function getValue(){
