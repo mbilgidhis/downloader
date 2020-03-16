@@ -1,0 +1,39 @@
+{
+    "name": "IG Downloader",
+    "short_name": "IG Downloader",
+    "theme_color": "#49769a",
+    "background_color": "#83a7c3",
+    "display": "browser",
+    "orientation": "portrait",
+    "Scope": "/",
+    "start_url": "/",
+    "description": "IG Downloader Media",
+    "icons": [
+        {
+            "src": "images/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "images/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "images/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "images/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        }
+    ],
+    "splash_pages": null
+}
