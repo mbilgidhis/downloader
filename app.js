@@ -26,12 +26,15 @@
     }
 
     async function getDownload(){
-        let data = await getJson();
-        if ( data.graphql.shortcode_media.is_video ) {
-            console.log(data.graphql.shortcode_media.video_url);
-        } else {
-            console.log(data.graphql.shortcode_media.display_url);
-        }
+        return await getJson().then(data => {
+            if ( data != null ) {
+                if (data.graphql.shortcode_media.is_video) {
+                    console.log(data.graphql.shortcode_media.video_url);
+                } else {
+                    console.log(data.graphql.shortcode_media.display_url);
+                }
+            }
+        });
     }
 
     async function getJson() {
@@ -42,6 +45,7 @@
             });
         } else {
             alert('URL is not valid');
+            return null;
         }
     }
 
