@@ -32,12 +32,29 @@
             if ( data != null ) {
                 hasil.innerHTML = "";
                 hasil.style.display = 'block';
-                if (data.graphql.shortcode_media.is_video) {
-                    let html = createButton(data.graphql.shortcode_media.video_url);
-                    hasil.innerHTML = html;
-                } else {
+                if ( data.graphql.shortcode_media.__typename == 'GraphImage' ) { // Image
                     let html = createButton(data.graphql.shortcode_media.display_url);
                     hasil.innerHTML = html;
+                } else if ( data.graphql.shortcode_media.__typename == 'GraphSidecar' ) { // Slide
+                    let sidecar = data.graphql.shortcode_media.edge_sidecar_to_children;
+                    let html = '';
+                    Object.keys(sidecar).forEach( element => {
+                        let tmp = sidecar[element];
+                        Object.keys(tmp).forEach( (key) => {
+                            let temp = tmp[key];
+                            if( temp.node.__typename == 'GraphImage' ) {
+                                html += createButton(temp.node.display_url);
+                            } else if( temp.node.__typename == 'GraphVideo' ) {
+                                html += createButton(temp.node.video_url, temp.node.display_url);
+                            }
+                        });
+                    });
+                    hasil.innerHTML = html;
+                } else if ( data.graphql.shortcode_media.__typename == 'GraphVideo' ) { //Video
+                    let html = createButton(data.graphql.shortcode_media.video_url, data.graphql.shortcode_media.display_url );
+                    hasil.innerHTML = html;
+                } else {
+                    alert('Please contact admin. This application needs to be fixed.');
                 }
             }
         });
@@ -69,8 +86,13 @@
             return null;
     }
 
-    function createButton(hasil) {
-        let html = `<a href="${hasil}" target="_blank" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"><svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg><span>Download</span></a>`;
+    function createButton(hasil, thumb = null ) {
+        let html = '';
+        if ( thumb == null ) {
+            html = `<div class="py-3"> <div class="bg-gray-400"><img src="${hasil}" class="object-contain h-48 w-full"></div><div class="py-2"><a href="${hasil}" target="_blank" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"><svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg><span>Download</span></a></div></div>`;
+        } else {
+            html = `<div class="py-3"> <div class="bg-gray-400"><img src="${thumb}" class="object-contain h-48 w-full"></div><div class="py-2"><a href="${hasil}" target="_blank" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"><svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg><span>Download</span></a></div></div>`;
+        }
         return html
     }
 })();
