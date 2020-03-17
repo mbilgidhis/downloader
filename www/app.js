@@ -6,7 +6,7 @@
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
                 .then(registration => console.log('Service worker registered'))
-                .catch(err => 'SW registration failed')
+                .catch(err => 'SW registration failed');
         });
     }
 
@@ -21,7 +21,7 @@
         const expression = /(https:\/\/www\.instagram\.com\/p\/[a-zA-Z0-9_]*)/gm;
         let result = url.match(expression);
         if ( result )
-            return result[0]
+            return result[0];
         else
             return null;
     }
@@ -93,6 +93,6 @@
         } else {
             html = `<div class="py-3"> <div class="bg-gray-400"><img src="${thumb}" class="object-contain h-48 w-full"></div><div class="py-2"><a href="${hasil}" target="_blank" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"><svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg><span>Download</span></a></div></div>`;
         }
-        return html
+        return html;
     }
 })();
