@@ -88,11 +88,20 @@
 
     function createButton(hasil, thumb = null ) {
         let html = '';
+        let filename = getFilename(hasil);
         if ( thumb == null ) {
-            html = `<div class="py-3"> <div class="bg-gray-400"><img src="${hasil}" class="object-contain h-48 w-full"></div><div class="py-2"><a href="${hasil}" target="_blank" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"><svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg><span>Download</span></a></div></div>`;
+            html = `<div class="py-3"> <div class="bg-gray-400"><img src="${hasil}" class="object-contain h-48 w-full"></div><div class="py-2"><a href="${hasil}" target="_blank" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" download="${filename}"><svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg><span>Download</span></a></div></div>`;
         } else {
-            html = `<div class="py-3"> <div class="bg-gray-400"><img src="${thumb}" class="object-contain h-48 w-full"></div><div class="py-2"><a href="${hasil}" target="_blank" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"><svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg><span>Download</span></a></div></div>`;
+            html = `<div class="py-3"> <div class="bg-gray-400"><img src="${thumb}" class="object-contain h-48 w-full"></div><div class="py-2"><a href="${hasil}" target="_blank" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" download="${filename}"><svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg><span>Download</span></a></div></div>`;
         }
         return html;
+    }
+
+    function getFilename(uri) {
+        let url = uri.split("?")
+        url = url[0];
+        url = url.split("/");
+        let filename = url[url.length - 1];
+        return filename;
     }
 })();
