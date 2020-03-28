@@ -18,7 +18,7 @@
 
     function checkUrl() {
         let url = getValue();
-        const expression = /(https:\/\/www\.instagram\.com\/p\/[a-zA-Z0-9_]*)/gm;
+        const expression = /(https:\/\/www\.instagram\.com\/p\/[a-zA-Z0-9\_\-]*)/gm;
         let result = url.match(expression);
         if ( result )
             return result[0];
