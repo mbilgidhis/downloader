@@ -32,6 +32,11 @@
             if ( data != null ) {
                 hasil.innerHTML = "";
                 hasil.style.display = 'block';
+                if ( data.graphql.shortcode_media.owner.is_private ) {
+                    alert('Account is private. We can not download the media');
+                    return null;
+                }
+
                 if ( data.graphql.shortcode_media.__typename == 'GraphImage' ) { // Image
                     let html = createButton(data.graphql.shortcode_media.display_url);
                     hasil.innerHTML = html;
