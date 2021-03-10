@@ -68,7 +68,7 @@
     async function getJson() {
         if ( checkUrl() != null ) {
             let link = checkUrl();
-            return await fetch('http://mbilgidhis.ddns.net:8080/ig/', { method: 'POST', headers: {'x-api-key' : 'jenggota123'}, body: JSON.stringify({'url' : link})}).then(response => {
+            return await fetch('http://mbilgidhis.ddns.net:8080/ig/', { mode: 'cors', method: 'POST', headers: {'x-api-key' : 'jenggota123'}, body: JSON.stringify({'url' : link})}).then(response => {
                 return response.json();
             });
         } else {
